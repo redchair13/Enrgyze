@@ -10,6 +10,9 @@ app.listen(9000, () => {
 
 const mongoose = require('mongoose');
 const User = require('./UserSchema');
+const EnergyDrink = require('./EnergyDrinkSchema')
+const Tag = require('./TagSchema')
+const Comment = require('./CommentSchema')
 
 const mongoString = "mongodb+srv://energize:shashank418@energize.dismtwa.mongodb.net/"
 mongoose.connect(mongoString);
@@ -40,3 +43,52 @@ app.get('/getUser', async (req, res) => {
         res.status(500).send(error)
     }
 })
+
+app.post('/createEnergyDrink', async(req,res) => {
+    try{
+        const energyDrink = new EnergyDrink(req.body);
+        await energyDrink.save()
+        res.send(energyDrink)
+    }
+    catch(error){
+        res.status(500).send(error)
+    }
+})
+
+
+app.post('/createTag', async(req,res) => {
+    try{
+        const tag = new Tag(req.body);
+        await tag.save()
+        res.send(tag)
+    }
+    catch(error){
+        res.status(500).send(error)
+    }
+})
+
+app.post('/createComment', async(req,res) => {
+    try{
+        const tag = new Tag(req.body);
+        await tag.save()
+        res.send(tag)
+    }
+    catch(error){
+        res.status(500).send(error)
+    }
+})
+
+
+
+app.get('/getTags', async (req, res) => {
+    try {
+        const tagList = await Tag.find({}, {name:1});
+        res.send(tagList)
+    }
+    catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+
+app.get('/')
