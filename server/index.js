@@ -90,5 +90,36 @@ app.get('/getTags', async (req, res) => {
     }
 })
 
+// gets a single drink based on its ID
+app.get('/drinks/:id', async (req, res) => {
+    try {
+        const energydrink = await EnergyDrink.findById(req.params.id);
+        if (!energydrink) {
+            return res.status(404).send('Drink not found');
+        }
+        res.send(energydrink);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
 
-app.get('/')
+// gets all drinks
+app.get('/getAlldrinks', async (req, res) => {
+    try {
+        const energyDrinks = await EnergyDrink.find({});
+        res.send(energyDrinks);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
+
+// make sure in the req for this, theres something that stores the id number of the energy drink
+app.get('/getCommentsByID', async (req,res) => {
+    try{
+        const comments = await Comment.find({drinkID: req.body.id});
+        res.send(comments);
+    }
+    catch(error){
+        res.status(500).send(error);
+    }
+})
