@@ -8,7 +8,7 @@ const EnergyDrinkSchema = new mongoose.Schema({
     ratings: [Number], // we will have to calculate the average every time we want to display it
     upvoteCount: Number,
     tagIDs: String, 
-    caffieneContent: Number,
+    caffeineContent: Number,
     calories: Number,
     sugar: Number,
     dateAdded: Number,

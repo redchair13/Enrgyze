@@ -1,10 +1,11 @@
 // import Login from './Login';
-import Signup from './SignUp';
+import SignUp from './SignUp';
 import LoginPage from './LoginPage';
 import HomePage from './homePage';
 import DrinkPage from './DrinkPage'
 import { Route, Routes } from 'react-router-dom';
 import CreateDrink from './CreateDrink';
+import SearchResults from './SearchResults';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/drinks/:id" component={DrinkPage} />
-        <Route path="/createDrink" element={<CreateDrink />} />
+        <Route path="/CreateDrink" element={<CreateDrink />} />
+        <Route path="/SearchResults/:search" component={<SearchResults />} />
       </Routes>
     </div>
   );

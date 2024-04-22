@@ -2,21 +2,37 @@
     background-color: blueviolet;
     color: antiquewhite;
     display: flex;
-    position: fixed;  /* Keeps the navbar fixed at the top of the viewport */
-    top: 0;           /* Aligns the navbar to the top */
-    width: 100%;      /* Ensures the navbar spans the full width of the viewport */
-    z-index: 1000;    /* Makes sure the navbar stays on top of other content */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center;     /* Center the content vertically */
+    position: fixed;         /* Keeps the navbar fixed at the top of the viewport */
+    top: 0;                  /* Aligns the navbar to the top */
+    width: 100%;             /* Ensures the navbar spans the full width of the viewport */
+    z-index: 1000;           /* Makes sure the navbar stays on top of other content */
+    height: 60px;            /* Specify a height for the navbar */
 }
 
 .navBar ul {
     list-style: none;
-    display: flex; /* makes it so that they are next to each other, in a row, not in column form*/
-    gap: 2rem; /* the space between each link */
-    padding: 0;       /* Removes padding inside the list to align properly */
-    margin: 0;        /* Removes margin around the list for better control */
+    display: flex;           /* Makes it so that they are next to each other, in a row, not in column form */
+    gap: 2rem;               /* The space between each link */
+    padding: 0;              /* Removes padding inside the list to align properly */
+    margin: 0;               /* Removes margin around the list for better control */
+    justify-content: center; /* Ensure the list items are centered within the navbar */
+    width: 100%;             /* Optional: Ensures `ul` takes the full width of the navbar */
 }
 
-.navBar a{
+.navBar a {
     color: inherit;
-    text-decoration: none; /* takes out the underline that would've been present */
+    text-decoration: none;   /* Takes out the underline that would've been present */
+}
+
+.searchBar {
+    padding: 1px;
+    margin-left: 10px; /* Adds a little space between the link and the search bar */
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Gives the search bar rounded corners */
+}
+
+.navBar ul li {
+    display: inline-block; /* Aligns items horizontally */
 }
