@@ -1,13 +1,19 @@
-.navBar{
+.navBar {
     background-color: blueviolet;
-    color:antiquewhite;
+    color: antiquewhite;
     display: flex;
+    position: fixed;  /* Keeps the navbar fixed at the top of the viewport */
+    top: 0;           /* Aligns the navbar to the top */
+    width: 100%;      /* Ensures the navbar spans the full width of the viewport */
+    z-index: 1000;    /* Makes sure the navbar stays on top of other content */
 }
 
-.navBar ul{
+.navBar ul {
     list-style: none;
     display: flex; /* makes it so that they are next to each other, in a row, not in column form*/
     gap: 2rem; /* the space between each link */
+    padding: 0;       /* Removes padding inside the list to align properly */
+    margin: 0;        /* Removes margin around the list for better control */
 }
 
 .navBar a{

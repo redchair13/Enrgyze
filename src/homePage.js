@@ -28,6 +28,7 @@ const MainPage = () => {
 
     return (
         <div style={containerStyle}>
+            <Navbar> </Navbar>
             <div style={contentStyle}>
                 <h1 style={{ textAlign: "center" }}>Code the mainpage here</h1>
                 <nav style={{ marginTop: "20px", textAlign: "center" }}>
