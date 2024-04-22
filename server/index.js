@@ -14,7 +14,7 @@ const EnergyDrink = require('./EnergyDrinkSchema')
 const Tag = require('./TagSchema')
 const Comment = require('./CommentSchema')
 
-const mongoString = "mongodb+srv://energize:shashank418@energize.dismtwa.mongodb.net/"
+const mongoString = "mongodb+srv://thebest418project:9XdoG4auWcIaj6E3@cluster0.v8iw3a6.mongodb.net/"
 mongoose.connect(mongoString);
 const  database = mongoose.connection
 

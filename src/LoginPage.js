@@ -80,7 +80,7 @@ const HomePage = () => {
                 )}
                 <nav style={{ marginTop: "20px", textAlign: "center" }}>
                     <span style={{ color: "black" }}>Don't have an account? </span>
-                    <Link to="/SignUp" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
+                    <Link to="/signup" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
                 </nav>
                 <Link to="/">
                     <button style={{ ...buttonStyle, backgroundColor: "#ccc", color: "black" }}>Back To Home Page?</button>
