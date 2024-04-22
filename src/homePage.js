@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar'
 
 const MainPage = () => {
     const containerStyle = {
@@ -30,7 +31,7 @@ const MainPage = () => {
             <div style={contentStyle}>
                 <h1 style={{ textAlign: "center" }}>Code the mainpage here</h1>
                 <nav style={{ marginTop: "20px", textAlign: "center" }}>
-                    <Link to="/" style={{ color: "blue", textDecoration: "none" }}>Back to Homepage</Link>
+                    <Link to="/login" style={{ color: "blue", textDecoration: "none" }}>Log in?</Link>
                 </nav>
             </div>
         </div>

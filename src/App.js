@@ -1,7 +1,7 @@
-import Login from './Login';
+// import Login from './Login';
 import Signup from './SignUp';
-import HomePage from './Homepage';
-import Mainpage from './Mainpage';
+import LoginPage from './LoginPage';
+import HomePage from './homePage';
 import DrinkPage from './DrinkPage'
 import { Route, Routes } from 'react-router-dom';
 
@@ -10,8 +10,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/SignUp" element={<Signup />} />
-        <Route path="/Mainpage" element={<Mainpage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/drinks/:id" component={DrinkPage} />
       </Routes>
     </div>

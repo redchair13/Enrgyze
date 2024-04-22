@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from './Navbar'
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -63,6 +64,7 @@ const HomePage = () => {
 
     return (
         <div style={containerStyle}>
+            <Navbar> </Navbar>
             <div style={formStyle}>
                 <h1 style={{ textAlign: "center" }}>Welcome to EnergizeMe!</h1>
                 {loggedInUser ? (
@@ -80,8 +82,8 @@ const HomePage = () => {
                     <span style={{ color: "black" }}>Don't have an account? </span>
                     <Link to="/SignUp" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
                 </nav>
-                <Link to="/MainPage">
-                    <button style={{ ...buttonStyle, backgroundColor: "#ccc", color: "black" }}>Or Continue as Guest</button>
+                <Link to="/">
+                    <button style={{ ...buttonStyle, backgroundColor: "#ccc", color: "black" }}>Back To Home Page?</button>
                 </Link>
             </div>
         </div>

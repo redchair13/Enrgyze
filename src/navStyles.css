@@ -1,0 +1,16 @@
+.navBar{
+    background-color: blueviolet;
+    color:antiquewhite;
+    display: flex;
+}
+
+.navBar ul{
+    list-style: none;
+    display: flex; /* makes it so that they are next to each other, in a row, not in column form*/
+    gap: 2rem; /* the space between each link */
+}
+
+.navBar a{
+    color: inherit;
+    text-decoration: none; /* takes out the underline that would've been present */
+}
