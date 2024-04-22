@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import Navbar from './Navbar'
+import Navbar from './Navbar';
+import Background from './Background.webp';
 
 const HomePage = () => {
 
     const containerStyle = {
-        backgroundImage: 'url("https://cdnsm5-hosted.civiclive.com/UserFiles/Servers/Server_15209001/Image/Work/Economic_Development/Resources/redBull%20Stock.jpg")',
+        backgroundImage: `url(${Background})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         color: 'Blue',

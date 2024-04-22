@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from './Navbar'
+import Navbar from './Navbar';
+import Background from './Background.webp';
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const HomePage = () => {
     };
 
     const containerStyle = {
-        backgroundImage: 'url("https://cdnsm5-hosted.civiclive.com/UserFiles/Servers/Server_15209001/Image/Work/Economic_Development/Resources/redBull%20Stock.jpg")',
+        backgroundImage: `url(${Background})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         color: 'Blue',
@@ -80,7 +81,7 @@ const HomePage = () => {
                 )}
                 <nav style={{ marginTop: "20px", textAlign: "center" }}>
                     <span style={{ color: "black" }}>Don't have an account? </span>
-                    <Link to="/signup" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
+                    <Link to="/SignUp" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
                 </nav>
                 <Link to="/">
                     <button style={{ ...buttonStyle, backgroundColor: "#ccc", color: "black" }}>Back To Home Page?</button>
