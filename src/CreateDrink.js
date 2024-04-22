@@ -11,51 +11,49 @@ const CreateDrink = () => {
     const [description, setDescription] = useState('');
 
     const handleDrinkCreate = (event) => {
-        // The implementation will be as before
+        event.preventDefault();
+
+        // Split tags into an array
+        const tagsArray = tags.split(" ").map(tag => tag.trim());
+
+        // Create the drink object to send to the server
+        const newDrink = {
+            name: drinkName,
+            companyName: companyName,
+            description: description,
+            tagIDs: tagsArray.join(), // Convert array to comma-separated string
+            caffieneContent: parseInt(caffeineContent),
+            nutritionFacts: nutritionFacts,
+            // Add other properties according to your schema if needed
+        };
+
+        // Send the request to create the drink
+        axios.post('http://localhost:9000/createEnergyDrink', newDrink)
+            .then(response => {
+                console.log('Drink created successfully:', response.data);
+                // Optionally, redirect or show a success message
+
+                // Reset form fields
+                setDrinkName('');
+                setCompanyName('');
+                setTags('');
+                setNutritionFacts('');
+                setCaffeineContent('');
+                setDescription('');
+            })
+            .catch(error => {
+                console.error('Error creating drink:', error);
+                // Handle error, show error message, etc.
+            });
     };
 
     // Define your inline styles here
     const styles = {
-        container: {
-            fontFamily: 'Arial, sans-serif',
-            backgroundColor: '#F3F4F6',
-            padding: '2rem',
-            borderRadius: '0.5rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
-            width: '100%',
-            maxWidth: '800px',
-            margin: 'auto'
-        },
-        inputGroup: {
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.5rem',
-        },
-        input: {
-            padding: '1rem',
-            border: '2px solid #D1D5DB',
-            borderRadius: '0.375rem',
-        },
-        button: {
-            padding: '1rem',
-            backgroundColor: '#4F46E5',
-            color: 'white',
-            border: 'none',
-            borderRadius: '0.375rem',
-            cursor: 'pointer',
-        },
-        label: {
-            fontWeight: 'bold',
-            fontSize: '1rem',
-            color: '#4B5563'
-        }
+        // Define your styles here as before
     };
 
     return (
         <div style={styles.container}>
-            <Navbar> </Navbar>
             <h2>Create Energy Drink</h2>
             <form onSubmit={handleDrinkCreate}>
                 <div style={styles.inputGroup}>
