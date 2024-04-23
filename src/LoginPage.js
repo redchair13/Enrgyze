@@ -4,7 +4,7 @@ import axios from 'axios';
 import Navbar from './Navbar';
 import Background from './Background.webp';
 
-const HomePage = () => {
+const LoginPage = () => {
     const navigate = useNavigate();
     const loggedInUser = localStorage.getItem('loggedInUser');
     const [login, setLogin] = useState({
@@ -39,7 +39,7 @@ const HomePage = () => {
         backgroundImage: `url(${Background})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        color: 'Blue',
+        color: 'Purple',
         padding: '50px',
         display: "flex",
         justifyContent: "center",
@@ -81,7 +81,7 @@ const HomePage = () => {
                 )}
                 <nav style={{ marginTop: "20px", textAlign: "center" }}>
                     <span style={{ color: "black" }}>Don't have an account? </span>
-                    <Link to="/signup" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
+                    <Link to="/SignUp" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
                 </nav>
                 <Link to="/">
                     <button style={{ ...buttonStyle, backgroundColor: "#ccc", color: "black" }}>Back To Home Page?</button>
@@ -91,4 +91,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default LoginPage;

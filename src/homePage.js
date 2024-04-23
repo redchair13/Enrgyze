@@ -9,7 +9,7 @@ const HomePage = () => {
         backgroundImage: `url(${Background})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        color: 'Blue',
+        color: 'Purple',
         padding: '50px',
         display: "flex",
         justifyContent: "center",

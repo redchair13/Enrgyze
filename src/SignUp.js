@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from './Navbar';
+import Background from './Background.webp';
 
-function Signup()  {
+const Signup = () => {
   const [signupValues, setSignupValues] = useState({
     firstName: '',
     lastName:  '',
@@ -24,45 +27,48 @@ function Signup()  {
       .catch((err) => alert('Error in Signing Up'));
   };
 
-  const containerStyle = {
-    backgroundImage: 'url("https://cdnsm5-hosted.civiclive.com/UserFiles/Servers/Server_15209001/Image/Work/Economic_Development/Resources/redBull%20Stock.jpg")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh"
-  };
+    const containerStyle = {
+        backgroundImage: `url(${Background})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: 'Purple',
+        padding: '50px',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh"
+    };
 
-  const formStyle = {
-    backgroundColor: "#fafafa",
-    padding: "40px",
-    borderRadius: "8px",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)"
-  };
+    const formStyle = {
+        backgroundColor: "#fafafa",
+        padding: "40px",
+        borderRadius: "8px",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        width: "300px"
+    };
 
-  const buttonStyle = {
-    width: "100%",
-    backgroundColor: "blue",
-    color: "white",
-    padding: "10px",
-    borderRadius: "5px",
-    border: "none",
-    marginBottom: "10px"
-  };
+    const buttonStyle = {
+        width: "100%",
+        padding: "10px",
+        borderRadius: "5px",
+        border: "none",
+        marginBottom: "10px",
+        backgroundColor:'#7B2C70'
+    };
 
-  return (
-    <div style={containerStyle}>
+    return (
+      <div style={containerStyle}>
+        <Navbar> </Navbar>
       <div style={formStyle}>
         <h1 style={{ textAlign: "center" }}>Sign Up</h1>
         <form onSubmit={handleSignUp}>
-          <label style={{ color: "blue", display: "block", marginBottom: "5px" }}>First Name:</label>
+          <label style={{ color: "Purple", display: "block", marginBottom: "5px" }}>First Name:</label>
           <input name="firstName" value={signupValues.firstName} onChange={handleInput} style={{ width: "100%", marginBottom: "10px", padding: "5px" }} /><br />
-          <label style={{ color: "blue", display: "block", marginBottom: "5px" }}>Last Name:</label>
+          <label style={{ color: "Purple", display: "block", marginBottom: "5px" }}>Last Name:</label>
           <input name="lastName" value={signupValues.lastName} onChange={handleInput} style={{ width: "100%", marginBottom: "10px", padding: "5px" }} /><br />
-          <label style={{ color: "blue", display: "block", marginBottom: "5px" }}>Username:</label>
+          <label style={{ color: "Purple", display: "block", marginBottom: "5px" }}>Username:</label>
           <input name="username" value={signupValues.username} onChange={handleInput} style={{ width: "100%", marginBottom: "10px", padding: "5px" }} /><br />
-          <label style={{ color: "blue", display: "block", marginBottom: "5px" }}>Password:</label>
+          <label style={{ color: "Purple", display: "block", marginBottom: "5px" }}>Password:</label>
           <input type="password" value={signupValues.password} name="password" onChange={handleInput} style={{ width: "100%", marginBottom: "10px", padding: "5px" }} /><br />
           <button type="submit" style={buttonStyle}>Submit</button><br />
         </form>
@@ -72,7 +78,7 @@ function Signup()  {
         </nav>
       </div>
     </div>
-  );
-}
+    );
+};
 
 export default Signup;
