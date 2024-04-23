@@ -70,7 +70,7 @@ app.post('/createComment', async(req,res) => {
 
 
 // gets a single drink based on its ID
-app.get('/drinks/:id', async (req, res) => {
+app.get('/DrinkPage/:id', async (req, res) => {
     try {
         const energydrink = await EnergyDrink.findById(req.params.id);
         if (!energydrink) {

@@ -7,39 +7,31 @@ function DrinkPage() {
     const { id } = useParams();
     const [drink, setDrink] = useState(null);
 
-    useEffect(() => {
-        axios.get(`/drinks/${id}`)
-            .then(response => {
-                setDrink(response.data);
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }, [id]);
+    // useEffect(() => {
+    //     axios.get(`/DrinkPage/${id}`)
+    //         .then(response => {
+    //             setDrink(response.data);
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }, [id]);
 
 
     return (
-        <div>
-            <h1 style={{textAlign: "center"}}> Energy Drink Page </h1>
-            <NavBar />
+        // <div>
+        //     <h1 style={{textAlign: "center"}}> Energy Drink Page </h1>
+        //     <NavBar />
 
-            <h3 style={{textAlign: "center"}}> {drink.name} </h3>
-            <h4 style={{textAlign: "center"}}> {drink.companyName} </h4>
+        //     <h3 style={{textAlign: "center"}}> {drink.name} </h3>
+        //     <h4 style={{textAlign: "center"}}> {drink.companyName} </h4>
 
-            <div style={{display: "flex", justifyContent: "space-between", padding: "20px"}}>
-                <Picture pic={drink.pictureIDs} alt={drink.name}/>
-                <Tags tags={drink.tagIDs}/>
-            </div>
-
-            <div style={{display: "flex", justifyContent: "space-between", padding: "20px"}}>
-                <Description desc={drink.description}/>
-                <NutritionalFacts caf={drink.caffeineContent} cal={drink.calories} sug={drink.sugar}/>
-            </div>
-            <Review/>
-        </div>
-
-
-
-)
-    ;
+        //     <div style={{display: "flex", justifyContent: "space-between", padding: "20px"}}>
+        //         <Description desc={drink.description}/>
+        //         <NutritionalFacts caf={drink.caffeineContent} cal={drink.calories} sug={drink.sugar}/>
+        //     </div>
+        //     <Review/>
+        // </div>
+        <p>Showing results for: {decodeURIComponent(id)}</p>
+    );
 }
 
 export default DrinkPage

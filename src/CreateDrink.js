@@ -8,7 +8,6 @@ const CreateDrink = () => {
 
     const [drinkName, setDrinkName] = useState('');
     const [companyName, setCompanyName] = useState('');
-    const [tags, setTags] = useState('');
     const [caffeineContent, setCaffeineContent] = useState('');
     const [sugar, setSugar] = useState('');
     const [Calories, setCalories] = useState('');
@@ -17,13 +16,10 @@ const CreateDrink = () => {
     const handleDrinkCreate = (event) => {
         event.preventDefault();
 
-        const tagsArray = tags.split(" ").map(tag => tag.trim());
-
         const newDrink = {
             name: drinkName,
             companyName: companyName,
             description: description,
-            tagIDs: tagsArray,
             caffeineContent: parseInt(caffeineContent),
             sugar: parseInt(sugar),
             Calories: parseInt(Calories),
@@ -34,7 +30,6 @@ const CreateDrink = () => {
                 console.log('Drink created successfully:', response.data);
                 setDrinkName('');
                 setCompanyName('');
-                setTags('');
                 setCaffeineContent('');
                 setSugar('');
                 setCalories('');
@@ -106,7 +101,7 @@ const CreateDrink = () => {
         <div style={containerStyle}>    
         <Navbar> </Navbar>
             <div style={formContainerStyle}>
-                <h2>Create Energy Drink</h2>
+                <h3>Create Energy Drink</h3>
                 <form onSubmit={handleDrinkCreate}>
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Drink Name:</label>
@@ -115,10 +110,6 @@ const CreateDrink = () => {
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Company Name:</label>
                         <input style={styles.input} type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
-                    </div>
-                    <div style={styles.inputGroup}>
-                        <label style={styles.label}>Tags:</label>
-                        <input style={styles.input} type="text" value={tags} onChange={(e) => setTags(e.target.value)} required />
                     </div>
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Caffeine Content (mg):</label>
