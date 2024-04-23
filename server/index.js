@@ -70,7 +70,7 @@ app.post('/createComment', async(req,res) => {
 
 
 // gets a single drink based on its ID
-app.get('/DrinkPage/:id', async (req, res) => {
+app.get('/drinkPage/:id', async (req, res) => {
     try {
         const energydrink = await EnergyDrink.findById(req.params.id);
         if (!energydrink) {
@@ -100,5 +100,16 @@ app.get('/getCommentsByID', async (req,res) => {
     }
     catch(error){
         res.status(500).send(error);
+    }
+})
+
+app.get('/getAllUsers', async (req, res) => {
+
+    try {
+        const user = await User.find()
+        res.send(user)
+    }
+    catch (error) {
+        res.status(500).send(error)
     }
 })

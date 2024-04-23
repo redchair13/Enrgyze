@@ -8,7 +8,7 @@ function DrinkPage() {
     const [drink, setDrink] = useState(null);
 
     // useEffect(() => {
-    //     axios.get(`/DrinkPage/${id}`)
+    //     axios.get(`/drinkPage/${id}`)
     //         .then(response => {
     //             setDrink(response.data);
     //         })
