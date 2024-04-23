@@ -11,7 +11,6 @@ app.listen(9000, () => {
 const mongoose = require('mongoose');
 const User = require('./UserSchema');
 const EnergyDrink = require('./EnergyDrinkSchema')
-const Tag = require('./TagSchema')
 const Comment = require('./CommentSchema')
 
 const mongoString = "mongodb+srv://thebest418project:9XdoG4auWcIaj6E3@cluster0.v8iw3a6.mongodb.net/"
@@ -56,22 +55,12 @@ app.post('/createEnergyDrink', async(req,res) => {
 })
 
 
-app.post('/createTag', async(req,res) => {
-    try{
-        const tag = new Tag(req.body);
-        await tag.save()
-        res.send(tag)
-    }
-    catch(error){
-        res.status(500).send(error)
-    }
-})
 
 app.post('/createComment', async(req,res) => {
     try{
-        const tag = new Tag(req.body);
-        await tag.save()
-        res.send(tag)
+        const comment = new Comment(req.body);
+        await comment.save()
+        res.send(comment)
     }
     catch(error){
         res.status(500).send(error)
@@ -79,16 +68,6 @@ app.post('/createComment', async(req,res) => {
 })
 
 
-
-app.get('/getTags', async (req, res) => {
-    try {
-        const tagList = await Tag.find({}, {name:1});
-        res.send(tagList)
-    }
-    catch (error) {
-        res.status(500).send(error)
-    }
-})
 
 // gets a single drink based on its ID
 app.get('/drinks/:id', async (req, res) => {

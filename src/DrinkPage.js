@@ -65,20 +65,6 @@ function Picture ({pic, alt}) {
     );
 }
 
-function Tags({tags}) {
-    return (
-        <div style={{
-            display: "flex", justifyContent: "flex-end", paddingRight: "20px", flex: "1",
-            paddingLeft: "20px"
-        }}>
-            <div style={{width: "300px", border: "5px solid"}}>
-                <p style={{textAlign: "left", fontSize: "16px", lineHeight: "1.0"}}>
-                    {tags}
-                </p>
-            </div>
-        </div>
-    );
-}
 
 function Description({desc}) {
     //Get the description from the database
@@ -123,11 +109,6 @@ function NutritionalFacts ({cal, sug, caf}) {
         </div>
     );
 }
-
-
-
-
-
 
 
 
