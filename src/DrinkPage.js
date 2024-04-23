@@ -5,7 +5,7 @@ import NavBar from "./Navbar"
 
 function DrinkPage() {
     const { id } = useParams();
-    const [drink, setDrink] = useState(null);
+    const [drink, setDrink] = useState([]);
 
     useEffect(() => {
         axios.get(`/drinkPage/${id}`)
@@ -20,8 +20,7 @@ function DrinkPage() {
         <div>
             <h1 style={{textAlign: "center"}}>Energy Drink Page</h1>
             <NavBar />
-
-            {drink && ( // Only render the content if 'drink' is not null
+            {( // Only render the content if 'drink' is not null
                 <>
                     <h3 style={{textAlign: "center"}}>{drink.name}</h3>
                     <h4 style={{textAlign: "center"}}>{drink.companyName}</h4>
