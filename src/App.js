@@ -6,7 +6,6 @@ import DrinkPage from './DrinkPage'
 import { Route, Routes } from 'react-router-dom';
 import CreateDrink from './CreateDrink';
 import SearchResults from './SearchResults';
-import Signup from './signupPage';
 
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/drinks/:id" component={DrinkPage} />
         <Route path="/CreateDrink" element={<CreateDrink />} />
         <Route path="/SearchResults/:search" component={<SearchResults />} />
