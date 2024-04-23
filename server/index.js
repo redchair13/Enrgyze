@@ -8,6 +8,7 @@ app.listen(9000, () => {
     console.log('Server started at ${9000}')
 })
 
+
 const mongoose = require('mongoose');
 const User = require('./UserSchema');
 const EnergyDrink = require('./EnergyDrinkSchema')
@@ -24,6 +25,7 @@ app.post('/createUser', async (req, res) => {
     try {
         const user = new User(req.body);
         await user.save()
+        console.log(user)
         res.send(user)
     }
     catch (error) {
@@ -46,6 +48,7 @@ app.get('/getUser', async (req, res) => {
 app.post('/createEnergyDrink', async(req,res) => {
     try{
         const energyDrink = new EnergyDrink(req.body);
+        energyDrink.upvoteCount = 0;
         await energyDrink.save()
         res.send(energyDrink)
     }
@@ -72,13 +75,13 @@ app.post('/createComment', async(req,res) => {
 // gets a single drink based on its ID
 app.get('/drinkPage/:id', async (req, res) => {
     try {
-        console.log(req.params.id)
         const energydrink = await EnergyDrink.findById(req.params.id);
         if (!energydrink) {
             return res.status(404).send('Drink not found');
         }
         res.send(energydrink);
     } catch (error) {
+        console.log(error)
         res.status(500).send(error);
     }
 })
@@ -94,15 +97,15 @@ app.get('/getAlldrinks', async (req, res) => {
 })
 
 // make sure in the req for this, theres something that stores the id number of the energy drink
-app.get('/getCommentsByID', async (req,res) => {
-    try{
-        const comments = await Comment.find({drinkID: req.body.id});
+app.get('/getCommentsByDrink/:drinkID', async (req, res) => {
+    try {
+        const comments = await Comment.find({ drinkID: req.params.drinkID });
         res.send(comments);
     }
-    catch(error){
+    catch (error) {
         res.status(500).send(error);
     }
-})
+});
 
 app.get('/getAllUsers', async (req, res) => {
 
@@ -118,7 +121,7 @@ app.get('/getAllUsers', async (req, res) => {
 app.get('/drinkCount', async (req, res) => {
     try {
       const count = await EnergyDrink.countDocuments();
-      res.json({ count });
+      res.send({ count });
     } catch (error) {
       console.error('Error occurred while counting documents:', error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -129,7 +132,7 @@ app.get('/drinkCount', async (req, res) => {
   app.get('/userCount', async (req, res) => {
     try {
       const count = await User.countDocuments();
-      res.json({ count });
+      res.send({ count });
     } catch (error) {
       console.error('Error occurred while counting documents:', error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -151,4 +154,47 @@ app.get('/drinkCount', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
+
+app.post('/upvote', async(req,res) => {
+    try {
+        const energydrink = await EnergyDrink.findById(req.body.id);
+        if (!energydrink) {
+            return res.status(404).send('Drink not found');
+        }
+        energydrink.upvoteCount = energydrink.upvoteCount + 1;
+        await energydrink.save(); 
+        res.send(energydrink); 
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+})
+
+app.post('/downvote', async(req,res) => {
+    try {
+        const energydrink = await EnergyDrink.findById(req.body.id);
+        if (!energydrink) {
+            return res.status(404).send('Drink not found');
+        }
+        energydrink.upvoteCount = energydrink.upvoteCount - 1;
+        await energydrink.save(); 
+        res.send(energydrink);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+})
+
+
+app.get('/upvoteCount', async (req, res) => {
+    try {
+        const energydrink = await EnergyDrink.findById(req.body.id);
+        const upvoteCount = energydrink.upvoteCount;
+        res.send({ upvoteCount });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+  });
+
 

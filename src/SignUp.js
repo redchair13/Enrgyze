@@ -74,7 +74,7 @@ const Signup = () => {
         </form>
         <nav style={{ marginTop: "20px", textAlign: "center" }}>
           <span style={{ color: "black" }}>Have an account? </span>
-          <a href="/" style={{ color: "blue", textDecoration: "none" }}>Log in</a>
+          <a href="/login" style={{ color: "blue", textDecoration: "none" }}>Log in</a>
         </nav>
       </div>
     </div>

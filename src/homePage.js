@@ -20,14 +20,14 @@ const HomePage = () => {
             });
 
         // Fetch user count
-        axios.get('/userCount')
+        axios.get('http://localhost:9000/userCount')
             .then(response => {
                 setUserCount(response.data.count);
             })
             .catch(error => console.error('Error fetching user count:', error));
 
         // Fetch drink count
-        axios.get('/drinkCount')
+        axios.get('http://localhost:9000/drinkCount')
             .then(response => {
                 setDrinkCount(response.data.count);
             })
@@ -43,7 +43,7 @@ const HomePage = () => {
         padding: '50px',
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         height: "100vh"
     };
@@ -77,15 +77,14 @@ const HomePage = () => {
 
     return (
         <div style={containerStyle}>
-            <br></br> <br></br> <br></br> <br></br> <br></br><br></br>
-            <Navbar />
+            <Navbar /> <br></br>
             <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Energy Drinks</h1>
             <div style={section}>
                 <div>
                     {drinks.map(drink => (
                         <div key={drink._id} style={drinkDisplay}>
-                            <h2>{drink.name}</h2>
-                            <p>{drink.companyName}</p>
+                            <h2>{drink.companyName}</h2>
+                            <h5>{drink.name}</h5>
                             <p>{drink.description}</p>
                             <Link to={`/DrinkPage/${drink._id}`} style={{ color: "blue", textDecoration: "none" }}>View Details</Link>
                         </div>

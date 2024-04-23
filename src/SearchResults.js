@@ -21,10 +21,10 @@ const SearchResults = () => {
 
   const displayDrinks = drinks.map((drink, index) => (
     <div key={index}>
-      <h3>{drink.name}</h3>
-      <p>{drink.companyName}</p>
+      <h3>{drink.companyName}</h3>
+      <h5>{drink.name}</h5>
       <p>{drink.description}</p>
-      <Link><p>Go to drink</p></Link>
+      <Link to={`/drinkPage/${drink._id}`}><p>Go to drink</p></Link>
     </div>
   ));
 

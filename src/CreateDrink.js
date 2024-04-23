@@ -10,7 +10,7 @@ const CreateDrink = () => {
     const [companyName, setCompanyName] = useState('');
     const [caffeineContent, setCaffeineContent] = useState('');
     const [sugar, setSugar] = useState('');
-    const [Calories, setCalories] = useState('');
+    const [calories, setCalories] = useState('');
     const [description, setDescription] = useState('');
 
     const handleDrinkCreate = (event) => {
@@ -22,7 +22,7 @@ const CreateDrink = () => {
             description: description,
             caffeineContent: parseInt(caffeineContent),
             sugar: parseInt(sugar),
-            Calories: parseInt(Calories),
+            calories: parseInt(calories),
         };
 
         axios.post('http://localhost:9000/createEnergyDrink', newDrink)
@@ -97,6 +97,16 @@ const CreateDrink = () => {
         button: buttonStyle,
     };
 
+    if (localStorage.getItem("loggedInUser") == null) {
+        return (
+            <div style={containerStyle}>
+                <Navbar />
+                <Link to="/login" style={formContainerStyle} >Please log in to create an energy drink</Link>
+            </div>
+        );
+    }
+
+
     return (
         <div style={containerStyle}>    
         <Navbar> </Navbar>
@@ -121,7 +131,7 @@ const CreateDrink = () => {
                     </div>
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Calories (cal):</label>
-                        <input style={styles.input} type="number" value={Calories} onChange={(e) => setCalories(e.target.value)} required />
+                        <input style={styles.input} type="number" value={calories} onChange={(e) => setCalories(e.target.value)} required />
                     </div>
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Description:</label>

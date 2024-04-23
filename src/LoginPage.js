@@ -12,6 +12,12 @@ const LoginPage = () => {
         password: ""
     });
 
+    const handleSignOut = (event) => {
+        event.preventDefault()
+        localStorage.clear()
+        navigate("/login");
+    }
+
     
     const handleInput = (event) => {
         const { name, value } = event.target;
@@ -27,7 +33,9 @@ const LoginPage = () => {
             .then((res) => {
                 if (res.data) {
                     localStorage.setItem('loggedInUser', login.username);
+                    localStorage.setItem('loggedInUserID', res.data._id);
                     alert('Login Successful');
+                    navigate("/");
                 } else {
                     alert('Wrong Credentials');
                 }
@@ -67,7 +75,7 @@ const LoginPage = () => {
         <div style={containerStyle}>
             <Navbar> </Navbar>
             <div style={formStyle}>
-                <h1 style={{ textAlign: "center" }}>Welcome to EnergizeMe!</h1>
+                <h1 style={{ textAlign: "center" }}>Welcome to Enrgyze!</h1>
                 {loggedInUser ? (
                     <p>Welcome, {loggedInUser}!</p>
                 ) : (
@@ -83,6 +91,11 @@ const LoginPage = () => {
                     <span style={{ color: "black" }}>Don't have an account? </span>
                     <Link to="/SignUp" style={{ color: "blue", textDecoration: "none" }}>Sign up</Link>
                 </nav>
+                { loggedInUser != null &&
+                    <button type="button" onClick={(event) => {
+                        handleSignOut(event)
+                        }}>Sign Out</button>
+                }
                 <Link to="/">
                     <button style={{ ...buttonStyle, backgroundColor: "#ccc", color: "black" }}>Back To Home Page?</button>
                 </Link>
