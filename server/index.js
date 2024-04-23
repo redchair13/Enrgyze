@@ -72,6 +72,7 @@ app.post('/createComment', async(req,res) => {
 // gets a single drink based on its ID
 app.get('/drinkPage/:id', async (req, res) => {
     try {
+        console.log(req.params.id)
         const energydrink = await EnergyDrink.findById(req.params.id);
         if (!energydrink) {
             return res.status(404).send('Drink not found');
@@ -113,3 +114,41 @@ app.get('/getAllUsers', async (req, res) => {
         res.status(500).send(error)
     }
 })
+
+app.get('/drinkCount', async (req, res) => {
+    try {
+      const count = await EnergyDrink.countDocuments();
+      res.json({ count });
+    } catch (error) {
+      console.error('Error occurred while counting documents:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+
+  app.get('/userCount', async (req, res) => {
+    try {
+      const count = await User.countDocuments();
+      res.json({ count });
+    } catch (error) {
+      console.error('Error occurred while counting documents:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  app.get('/searchDrinks', async (req, res) => {
+    const searchQuery = req.query.search;
+    try {
+        const drinks = await EnergyDrink.find({
+            $or: [
+                { name: { $regex: searchQuery, $options: 'i' } },
+                { companyName: { $regex: searchQuery, $options: 'i' } }
+            ]
+        });
+        res.send(drinks);
+    } catch (error) {
+        console.error('Error searching drinks:', error);
+        res.status(500).send(error);
+    }
+});
+
