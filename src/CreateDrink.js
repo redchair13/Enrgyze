@@ -12,32 +12,44 @@ const CreateDrink = () => {
     const [sugar, setSugar] = useState('');
     const [calories, setCalories] = useState('');
     const [description, setDescription] = useState('');
+    const [image, setImage] = useState(null);
 
-    const handleDrinkCreate = (event) => {
+    const handleImageChange = (event) => {
+        setImage(event.target.files[0]);
+    };
+
+
+    const handleDrinkCreate = async (event) => {
         event.preventDefault();
 
-        const newDrink = {
-            name: drinkName,
-            companyName: companyName,
-            description: description,
-            caffeineContent: parseInt(caffeineContent),
-            sugar: parseInt(sugar),
-            calories: parseInt(calories),
-        };
+        const formData = new FormData();
+        formData.append('name', drinkName);
+        formData.append('companyName', companyName);
+        formData.append('caffeineContent', parseInt(caffeineContent));
+        formData.append('sugar', parseInt(sugar));
+        formData.append('calories', parseInt(calories));
+        formData.append('description', description);
+        if (image) {
+            formData.append('image', image);
+        }
 
-        axios.post('http://localhost:9000/createEnergyDrink', newDrink)
-            .then(response => {
-                console.log('Drink created successfully:', response.data);
-                setDrinkName('');
-                setCompanyName('');
-                setCaffeineContent('');
-                setSugar('');
-                setCalories('');
-                setDescription('');
-            })
-            .catch(error => {
-                console.error('Error creating drink:', error);
+        try {
+            const response = await axios.post('http://localhost:9000/createEnergyDrink', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
+            console.log('Drink created successfully:', response.data);
+            setDrinkName('');
+            setCompanyName('');
+            setCaffeineContent('');
+            setSugar('');
+            setCalories('');
+            setDescription('');
+            setImage(null);
+        } catch (error) {
+            console.error('Error creating drink:', error);
+        }
     };
 
     const containerStyle = {
@@ -136,6 +148,10 @@ const CreateDrink = () => {
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Description:</label>
                         <textarea style={styles.input} value={description} onChange={(e) => setDescription(e.target.value)} required />
+                    </div>
+                    <div style={styles.inputGroup}>
+                     <label style={styles.label}>Image:</label>
+                     <input style={styles.input} type="file" accept="image/*" onChange={handleImageChange} required/>
                     </div>
                     <button style={styles.button} type="submit">Create Drink</button>
                 </form>

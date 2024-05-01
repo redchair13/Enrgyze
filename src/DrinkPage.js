@@ -98,6 +98,7 @@ function DrinkPage() {
             {/* {id} */}
             <NavBar /> <br></br> <br></br><br></br>
             <h1 style={{textAlign: "center"}}>{drink.companyName}</h1>
+            <img src={`http://localhost:9000/getEnergyDrinkImage/${drink._id}`} alt={drink.name} style={{ maxWidth: "25%", height: "auto" }} />
             <h3 style={{textAlign: "center"}}>{drink.name}</h3>
         
             <div style={{display: "flex", justifyContent: "space-between", padding: "20px"}}>

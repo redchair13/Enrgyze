@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
 const app = express();
+const fs = require('fs');
 
 app.use(express.json());
 app.use(cors());
@@ -8,6 +11,9 @@ app.listen(9000, () => {
     console.log('Server started at ${9000}')
 })
 
+// Multer configuration
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const mongoose = require('mongoose');
 const User = require('./UserSchema');
@@ -15,7 +21,10 @@ const EnergyDrink = require('./EnergyDrinkSchema')
 const Comment = require('./CommentSchema')
 
 const mongoString = "mongodb+srv://thebest418project:9XdoG4auWcIaj6E3@cluster0.v8iw3a6.mongodb.net/"
-mongoose.connect(mongoString);
+mongoose.connect(mongoString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 const  database = mongoose.connection
 
 database.on('error', (error)=> console.log(error))
@@ -45,17 +54,25 @@ app.get('/getUser', async (req, res) => {
     }
 })
 
-app.post('/createEnergyDrink', async(req,res) => {
-    try{
-        const energyDrink = new EnergyDrink(req.body);
+// Create Energy Drink endpoint with image upload
+app.post('/createEnergyDrink', upload.single('image'), async (req, res) => {
+    try {
+        let energyDrinkData = req.body;
+        if (req.file) {
+            // If image is uploaded, set image data and content type
+            energyDrinkData.image = {
+                data: req.file.buffer,
+                contentType: req.file.mimetype
+            };
+        }
+        const energyDrink = new EnergyDrink(energyDrinkData);
         energyDrink.upvoteCount = 0;
-        await energyDrink.save()
-        res.send(energyDrink)
+        await energyDrink.save();
+        res.send(energyDrink);
+    } catch (error) {
+        res.status(500).send(error);
     }
-    catch(error){
-        res.status(500).send(error)
-    }
-})
+});
 
 
 
@@ -95,6 +112,32 @@ app.get('/getAlldrinks', async (req, res) => {
         res.status(500).send(error);
     }
 })
+
+app.get('/getEnergyDrinkImage/:id', async (req, res) => {
+    try {
+        // Find the energy drink by ID
+        const energyDrink = await EnergyDrink.findById(req.params.id);
+        if (!energyDrink) {
+            return res.status(404).send('Drink not found');
+        }
+
+        // Check if the energy drink has an image
+        if (!energyDrink.image) {
+            return res.status(404).send('Image not found');
+        }
+
+        // Set response content type
+        res.contentType(energyDrink.image.contentType);
+
+        // Send image data
+        res.send(energyDrink.image.data);
+    } catch (error) {
+        console.error('Error fetching energy drink image:', error);
+        res.status(500).send(error);
+    }
+});
+
+
 
 // make sure in the req for this, theres something that stores the id number of the energy drink
 app.get('/getCommentsByDrink/:drinkID', async (req, res) => {
@@ -196,5 +239,3 @@ app.get('/upvoteCount', async (req, res) => {
         res.status(500).send(error);
     }
   });
-
-

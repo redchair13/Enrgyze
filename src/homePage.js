@@ -48,13 +48,6 @@ const HomePage = () => {
         height: "100vh"
     };
 
-    const section = {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        width: "100%"
-    }
-
     const drinkDisplay = {
         backgroundColor: "#fafafa",
         padding: "20px",
@@ -65,6 +58,13 @@ const HomePage = () => {
         textAlign: "center"
     };
 
+    const section = {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        width: "100%"
+    }
+
     const boardDisplay = {
         backgroundColor: "white",
         padding: "20px",
@@ -72,25 +72,31 @@ const HomePage = () => {
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
         width: "250px",
         margin: "10px",
-        textAlign: "center"
+        textAlign: "center",
+        position: "absolute",
+        top: "100px",
+        right: "20px", 
     };
+
 
     return (
         <div style={containerStyle}>
             <Navbar /> <br></br>
             <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Energy Drinks</h1>
             <div style={section}>
-                <div>
-                    {drinks.map(drink => (
-                        <div key={drink._id} style={drinkDisplay}>
-                            <h2>{drink.companyName}</h2>
-                            <h5>{drink.name}</h5>
-                            <p>{drink.description}</p>
-                            <Link to={`/DrinkPage/${drink._id}`} style={{ color: "blue", textDecoration: "none" }}>View Details</Link>
-                        </div>
-                    ))}
-                </div>
-                <div style={boardDisplay}>
+            <div>
+                {drinks.map(drink => (
+                    <div key={drink._id} style={drinkDisplay}>
+                        <h2>{drink.companyName}</h2>
+                        <img src={`http://localhost:9000/getEnergyDrinkImage/${drink._id}`} alt={drink.name} style={{ maxWidth: "100%", height: "auto" }} />
+                        <h5>{drink.name}</h5>
+                        <p>{drink.description}</p>
+                        <Link to={`/DrinkPage/${drink._id}`} style={{ color: "blue", textDecoration: "none" }}>View Details</Link>
+                    </div>
+                ))}
+            </div>
+        </div>
+            <div style={boardDisplay}>
                     <p style={{textAlign: "center", fontSize: "18px", lineHeight: "1.0"}}>Encyclopedia</p>
                     <p style={{textAlign: "center", fontSize: "15px", lineHeight: "1.0"}}>Total Users: {userCount}</p>
                     <p style={{textAlign: "center", fontSize: "15px", lineHeight: "1.0"}}>Total Drinks: {drinkCount}</p>
@@ -98,7 +104,6 @@ const HomePage = () => {
                         <Link to="/login" style={{ color: "blue", textDecoration: "none" }}>Log in?</Link>
                     </nav>
                 </div>
-            </div>
         </div>
     );
 };
