@@ -21,7 +21,11 @@ function Navbar() {
         <nav className="navBar">
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/login">Log in</a></li>
+                {localStorage.getItem("loggedInUser") ? (
+                    <li><a href="#" onClick={() => { localStorage.clear(); window.location.href = "/" }}>Sign Out</a></li>
+                ) : (
+                    <li><a href="/login">Log in</a></li>
+                )}
                 <li><a href="/CreateDrink">Add a Drink</a></li>
                 <li>
                     <input

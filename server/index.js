@@ -11,7 +11,7 @@ app.listen(9000, () => {
     console.log('Server started at ${9000}')
 })
 
-// Multer configuration
+// Multer configuration(for the images and form data)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 

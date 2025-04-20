@@ -8,29 +8,22 @@ const HomePage = () => {
     const [drinks, setDrinks] = useState([]);
     const [userCount, setUserCount] = useState(0);
     const [drinkCount, setDrinkCount] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch energy drinks data from your server
         axios.get('http://localhost:9000/getAlldrinks')
             .then(response => {
-                setDrinks(response.data);
+                const shuffled = [...response.data].sort(() => 0.5 - Math.random());
+                setDrinks(shuffled.slice(0, 3));
             })
-            .catch(error => {
-                console.error('Error fetching drinks:', error);
-            });
+            .catch(error => console.error('Error fetching drinks:', error));
 
-        // Fetch user count
         axios.get('http://localhost:9000/userCount')
-            .then(response => {
-                setUserCount(response.data.count);
-            })
+            .then(response => setUserCount(response.data.count))
             .catch(error => console.error('Error fetching user count:', error));
 
-        // Fetch drink count
         axios.get('http://localhost:9000/drinkCount')
-            .then(response => {
-                setDrinkCount(response.data.count);
-            })
+            .then(response => setDrinkCount(response.data.count))
             .catch(error => console.error('Error fetching drink count:', error));
     }, []);
 
@@ -39,71 +32,77 @@ const HomePage = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
-        color: 'Purple',
-        padding: '50px',
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        height: "100vh"
+        color: '#2E1A47',
+        padding: '80px 50px 50px 50px',
+        minHeight: '100vh',
+        boxSizing: 'border-box'
     };
 
-    const drinkDisplay = {
-        backgroundColor: "#fafafa",
+    const gridContainer = {
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        gap: "40px",
+        marginTop: "30px",
+    };
+
+    const drinkCard = {
+        backgroundColor: "#f5f0fa",
         padding: "20px",
-        borderRadius: "8px",
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        borderRadius: "16px",
+        boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
         width: "300px",
-        margin: "10px",
-        textAlign: "center"
-    };
-
-    const section = {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        width: "100%"
-    }
-
-    const boardDisplay = {
-        backgroundColor: "white",
-        padding: "20px",
-        borderRadius: "8px",
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        width: "250px",
-        margin: "10px",
         textAlign: "center",
-        position: "absolute",
-        top: "100px",
-        right: "20px", 
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        cursor: "pointer",
     };
 
+    const statsBar = {
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "40px",
+        gap: "30px",
+        backgroundColor: "#e4d6f1",
+        padding: "20px",
+        borderRadius: "10px",
+        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.15)",
+        width: "fit-content",
+        marginLeft: "auto",
+        marginRight: "auto"
+    };
 
     return (
         <div style={containerStyle}>
-            <Navbar /> <br></br>
-            <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Energy Drinks</h1>
-            <div style={section}>
-            <div>
+            <Navbar />
+            <h1 style={{ textAlign: "center", marginTop: "20px", color: "#A93226" }}>Featured Energy Drinks</h1>
+
+            <div style={gridContainer}>
                 {drinks.map(drink => (
-                    <div key={drink._id} style={drinkDisplay}>
+                    <div 
+                        key={drink._id} 
+                        style={drinkCard}
+                        onClick={() => navigate(`/DrinkPage/${drink._id}`)}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.transform = "scale(1.05)";
+                            e.currentTarget.style.boxShadow = "0px 6px 25px rgba(0, 0, 0, 0.3)";
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.transform = "scale(1)";
+                            e.currentTarget.style.boxShadow = "0px 4px 20px rgba(0, 0, 0, 0.2)";
+                        }}
+                    >
                         <h2>{drink.companyName}</h2>
-                        <img src={`http://localhost:9000/getEnergyDrinkImage/${drink._id}`} alt={drink.name} style={{ maxWidth: "100%", height: "auto" }} />
+                        <img src={`http://localhost:9000/getEnergyDrinkImage/${drink._id}`} alt={drink.name} style={{ maxWidth: "100%", height: "auto", borderRadius: "8px" }} />
                         <h5>{drink.name}</h5>
                         <p>{drink.description}</p>
-                        <Link to={`/DrinkPage/${drink._id}`} style={{ color: "blue", textDecoration: "none" }}>View Details</Link>
                     </div>
                 ))}
             </div>
-        </div>
-            <div style={boardDisplay}>
-                    <p style={{textAlign: "center", fontSize: "18px", lineHeight: "1.0"}}>Encyclopedia</p>
-                    <p style={{textAlign: "center", fontSize: "15px", lineHeight: "1.0"}}>Total Users: {userCount}</p>
-                    <p style={{textAlign: "center", fontSize: "15px", lineHeight: "1.0"}}>Total Drinks: {drinkCount}</p>
-                    <nav style={{ marginTop: "20px", textAlign: "center" }}>
-                        <Link to="/login" style={{ color: "blue", textDecoration: "none" }}>Log in?</Link>
-                    </nav>
-                </div>
+
+            <div style={statsBar}>
+                <p><strong>Total Users:</strong> {userCount}</p>
+                <p><strong>Total Drinks:</strong> {drinkCount}</p>
+            </div>
         </div>
     );
 };
