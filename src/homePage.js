@@ -74,7 +74,7 @@ const HomePage = () => {
     return (
         <div style={containerStyle}>
             <Navbar />
-            <h1 style={{ textAlign: "center", marginTop: "20px", color: "#A93226" }}>Featured Energy Drinks</h1>
+            <h1 style={{ textAlign: "center", marginTop: "20px", color: "#FFFFFF" }}>Featured Energy Drinks</h1>
 
             <div style={gridContainer}>
                 {drinks.map(drink => (
